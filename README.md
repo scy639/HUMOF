@@ -35,7 +35,7 @@ python preprocess.py \
 --smplx_dir=<smplx_dir>
 ```
 
-where <humanise_dir>, ... are the data downloaded in step 1 and the paths orginized like:
+Where `<humanise_dir>`, `<scene_dir>`, and `<smplx_dir>` refer to the data from Step 1. The expected directory structure is:
 
 ```bash
 <humanise_dir>
