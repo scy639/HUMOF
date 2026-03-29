@@ -1,0 +1,64 @@
+annoy==1.17.3
+arm_pytorch_utilities==0.4.3
+chumpy==0.70
+-e git+https://github.com/openai/CLIP.git@dcba3cb2e2827b402d2701e7e1c7d9fed8a20ef1#egg=clip
+cumm-cu113==0.2.9
+diffusers==0.30.3
+einops==0.8.0
+fire==0.6.0
+ftfy==6.2.3
+gym==0.25.2
+h5py==3.11.0
+-e git+https://github.com/jutanke/hik.git@438b4fe95e9752619d4abd4e5bdfa42589de0920#egg=hik
+huggingface-hub==0.25.1
+hydra-core==0.11.3
+imageio==2.35.1
+iopath==0.1.10
+lmdb==1.5.1
+matplotlib==3.9.2
+multidim_indexing==1.0.1
+ndms @ git+https://github.com/jutanke/ndms.git@fcf584f9534f8168a8a585c99dd1bf8c449387ec
+networkx==3.2.1
+ninja==1.11.1.1
+numba==0.60.0
+numpy==1.24.3
+omegaconf==1.4.1
+opencv-python==4.10.0.84
+pandas==2.2.2
+pccm==0.3.4
+pillow==10.4.0
+plotly==5.24.1
+plyfile==1.1
+pybind11==2.13.5
+PyOpenGL==3.1.0
+pyquaternion==0.9.9
+pyrender==0.1.45
+pysdf==0.1.9
+pytorch-kinematics==0.7.5
+pytorch-lightning==0.7.1
+pytorch-seed==0.2.0
+-e git+https://github.com/facebookresearch/pytorch3d.git@58566963d620cbe067ec53eae62ca262aecfbe27#egg=pytorch3d
+pytorch_volumetric==0.5.2
+pyviz3d==0.3.5
+PyYAML==6.0.2
+rtree==1.4.0
+safetensors==0.4.5
+scikit-image==0.24.0
+scikit-learn==1.5.1
+scipy==1.10.1
+seaborn==0.13.2
+smplx==0.1.28
+spconv-cu113==2.1.25
+tensorboard==2.17.1
+tensorboard-reducer==0.3.1
+tensorboardX==2.6.2.2
+tifffile==2024.8.30
+torch==1.12.0
+torchaudio==0.13.0+cu117
+-e git+https://github.com/eliphatfs/cumesh2sdf.git@7789ade81bcd5fa77112d2cb5d825ed0e634e76b#egg=torchcumesh2sdf
+torchgeometry==0.1.2
+torchmetrics==1.4.1
+torchvision==0.14.0+cu117
+tqdm==4.66.5
+trimesh==4.3.0
+yacs==0.1.8

@@ -84,7 +84,7 @@ elif DATASET_name == 'gta':
     t_pred=60
     MULTI_PERSON_MODE = False
 elif DATASET_name == 'humanise':
-    from datasets.dataset_preprocess.humanise import *
+    from datasets.dataset_preprocess.humanise.confs import *
     t_his=15
     t_pred=30
     MULTI_PERSON_MODE = False
@@ -181,13 +181,15 @@ else:
 root_joint_idx=ROOT_JOINT_IDX
 
 #
+if not os.path.exists("results"):     os.mkdir("results")
 if not os.path.exists(result_dir):     os.mkdir(result_dir)
 #
 model_dir =Path('checkpoints')
+model_dir.mkdir(exist_ok=True)
 model_dir = model_dir / result_id
 model_dir.mkdir(exist_ok=True)
 model_path = os.path.join(  model_dir,   '%d.pth'  )
 
-if 1:
+if DATASET_name=='hik':
     DIR_hik__tu_2_others_ids.mkdir(exist_ok=True)
     DIR_hik__tu_2_should_filter_primary.mkdir(exist_ok=True)
