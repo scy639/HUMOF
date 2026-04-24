@@ -85,7 +85,7 @@ conda activate SAST
 pip install -r requirements.txt
 ```
 
-Download the [Humans in Kitchens](https://github.com/jutanke/hik/tree/main) and unpack its content to `data/`, such that `data/` contains `poses/`, `scenes/`, and `body_models/`.
+Download the [Humans in Kitchens](https://github.com/jutanke/hik/tree/main) and unpack its content to `./data/` (note that `.` is `datasets/dataset_preprocess/hik/SAST` now), such that `./data/` contains `poses/`, `scenes/`, and `body_models/`.
 
 ```bash
 cd .. # datasets/dataset_preprocess/hik/SAST -> datasets/dataset_preprocess/hik
