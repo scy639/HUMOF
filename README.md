@@ -8,7 +8,7 @@ Official implementation of the paper **"HUMOF: Human Motion Forecasting in Inter
     - [ ] GTA-IM
     - [x] Humanise
     - [ ] HOI-M3
-    - [ ] HIK
+    - [x] HIK
 - [x] Train & Eval code
 - [ ] Pre-trained weights
 
@@ -74,7 +74,25 @@ Where `<humanise_dir>`, `<scene_dir>`, and `<smplx_dir>` refer to the data from 
 ```
 
 
+#### HIK dataset
+
+```bash
+cd datasets/dataset_preprocess/hik
+git clone https://github.com/felixbmuller/SAST.git
+cd SAST
+conda create -n "SAST" python=3.10
+conda activate SAST
+pip install -r requirements.txt
+```
+
+Download the [Humans in Kitchens](https://github.com/jutanke/hik/tree/main) and unpack its content to `data/`, such that `data/` contains `poses/`, `scenes/`, and `body_models/`.
+
+```bash
+cd .. # datasets/dataset_preprocess/hik/SAST -> datasets/dataset_preprocess/hik
+python preprocess.py hik hik_shortterm.yaml
+```
+
 ## Train & Eval
 
-Humanise: run `python main.py`
+Modify the `DATASET_name` field in `conf0.py` and run `python main.py`
 

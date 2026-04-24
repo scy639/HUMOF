@@ -27,8 +27,8 @@ J_S_DIR=HUMANISE_DIR/'processed_'
 S_DIR=J_S_DIR
 
 
-HIK_raw_DIR= "./data/hik/data"
-HIK_preprocess_DIR= "./data/hik_preprocessB/H25F50"
+HIK_raw_DIR= "./datasets/dataset_preprocess/hik/SAST"
+HIK_preprocess_DIR= "./datasets/dataset_preprocess/hik/hik_preprocessed/H25F50"
 HIK_raw_DIR=Path(HIK_raw_DIR)
 HIK_preprocess_DIR=Path(HIK_preprocess_DIR)
 DIR_hik__tu_2_others_ids = HIK_preprocess_DIR / 'tu_2_others_ids'
@@ -69,7 +69,7 @@ if 1:
     TR_ctx :bool = False # token reweight (TR) for ctx token
 
 if DATASET_name == 'hik':
-    from datasets.dataset_preprocess.hik import *
+    from datasets.dataset_preprocess.hik.confs import *
     t_his=25
     t_pred=50
     MULTI_PERSON_MODE = True

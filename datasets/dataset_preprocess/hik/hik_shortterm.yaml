@@ -1,0 +1,8 @@
+data:
+  hik_location: SAST/data/
+  frames_in: 25
+  frames_out: 50
+  seq_offset: 10
+
+loader:
+  dataset_path: SAST/data/
