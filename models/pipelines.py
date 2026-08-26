@@ -76,8 +76,6 @@ class Preprocess:
     @classmethod
     def A_multiPerson(cls,_tmp):
         _tmp2 = _tmp[:-1]
-        if CHECK_:
-            print_randomly(f"{_tmp=}", 0.01 , )
         others = _tmp[-1]
         _tmp2 = cls.A( *_tmp2 )
         return (

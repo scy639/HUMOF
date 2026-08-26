@@ -8,8 +8,8 @@ import os,sys
 
 # _gta_dir  =  Path('/data/shared/suncy/GTA-IM_Dataset--processed')
 _gta_dir  =  Path('./data/GTA-IM_Dataset/processed')
-gta_data_path  =  _gta_dir  /  'data_v2_downsample0.02-suncy2.2smallA'
-gta_idx_path  =  _gta_dir  /  'processed_seq_pkl-perFrame-suncy2.2'
+gta_data_path  =  _gta_dir  /  'data_v2_downsample0.02_fix'
+gta_idx_path  =  _gta_dir  /  'processed_seq_pkl-perFrame'
 
 
 
@@ -27,7 +27,7 @@ J_S_DIR=HUMANISE_DIR/'processed_'
 S_DIR=J_S_DIR
 
 
-HIK_raw_DIR= "./datasets/dataset_preprocess/hik/SAST"
+HIK_raw_DIR= "./datasets/dataset_preprocess/hik/SAST/data"
 HIK_preprocess_DIR= "./datasets/dataset_preprocess/hik/hik_preprocessed/H25F50"
 HIK_raw_DIR=Path(HIK_raw_DIR)
 HIK_preprocess_DIR=Path(HIK_preprocess_DIR)
@@ -140,10 +140,14 @@ if MULTI_PERSON_MODE:
 else:
     ADAM_eps = 1e-8 # default value in Adam
 num_epoch_fix=1
-if MULTI_PERSON_MODE:
-    num_epoch=  70
-else:
-    num_epoch= 50
+if DATASET_name == 'hik':
+    num_epoch = 80
+elif DATASET_name == 'hoi':
+    num_epoch = 80
+elif DATASET_name == 'gta':
+    num_epoch = 150 # >100 ep can get better results
+elif DATASET_name == 'humanise':
+    num_epoch = 50 # 50 is euough for humanise
 # ds: Dct reScaling
 APPLY_ds_since:int = 0 # if 0, ds throughout (old default)
 LEARN_ds_since:int = num_epoch//2 # if 0, learn throughout (old default)
@@ -153,7 +157,7 @@ assert APPLY_ds_since<=LEARN_ds_since, 'apply ds epoch range must cover learn ds
 
 Preprocess_in_dataloader:bool  =  0
 
-result_id = f"{DATASET_name}-releaseV0.1"
+result_id = f"{DATASET_name}"
 # result_id= 'tttt34546'
 print(f"----------------result_id:  {result_id}  -------------------")
 result_dir=os.path.join(   './results'  , result_id     )
@@ -186,9 +190,7 @@ if not os.path.exists(result_dir):     os.mkdir(result_dir)
 #
 model_dir =Path('checkpoints')
 model_dir.mkdir(exist_ok=True)
-model_dir = model_dir / result_id
-model_dir.mkdir(exist_ok=True)
-model_path = os.path.join(  model_dir,   '%d.pth'  )
+model_path = os.path.join(  model_dir,   f'{result_id}.pth'  )
 
 if DATASET_name=='hik':
     DIR_hik__tu_2_others_ids.mkdir(exist_ok=True)

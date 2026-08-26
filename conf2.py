@@ -5,11 +5,6 @@ from eval_gate import eval_gate,eval_model_interval
 import os
 
 
-if 0:
-    from . import auto_select_gpu
-else:
-    os.environ['CUDA_VISIBLE_DEVICES'] = '1'
-print(f"{os.environ['CUDA_VISIBLE_DEVICES']=}")
 
 num_workers = 10
 

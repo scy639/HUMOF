@@ -4,9 +4,7 @@ from conf import *
 from conf2 import *
 sys.path.append(os.getcwd())
 # ccc-------------------------------
-cp_iter = 0    # iter number of ckpt to be loaded. if 0, init model. can be 'auto'
 model_path_trained = model_path
-TRAIN=   bool(    1    )
 SHUFFLE_when_train = True
 SHUFFLE_when_test  = False
 prefetch_factor=       2       if num_workers>0 else 2
@@ -190,11 +188,11 @@ def train(epoch,TRAIN:bool,dataset ):
     )
     if DYN_BS:   
         batch_sampler.set_epoch(epoch)#  must be set each ep
-        if 1:
+        if 0:
             # print(   dataset.id2O  )
             print(  f"{batch_sampler._batches[-3:]=}"   )
             _batches_2= [  [ dataset.id2O[id_] for id_ in batch] for batch in  batch_sampler._batches  ]
-            print(f"{_batches_2[-10:]=}")
+            print(f"{_batches_2[-3:]=}")
 
     pose_err = np.zeros(t_pred)
     path_err = np.zeros(t_pred)
@@ -441,19 +439,11 @@ if __name__ == '__main__':
     scheduler = get_scheduler(optimizer, policy='lambda', nepoch_fix=num_epoch_fix, nepoch=num_epoch)
 
 
-    if cp_iter != 0:
-        if cp_iter=='AUTO' or cp_iter=='auto':
-            cp_iter=get_latest_ckpt_B()[1]
-            if  1  :
-                user_confirm=input(f"auto load {cp_iter=}? (y/n): ")
-                if user_confirm.lower()!='y':
-                    exit(0)
-        cp_path = model_path_trained % cp_iter
-        print('loading model from checkpoint: %s' % cp_path)
-        model_cp = torch.load(cp_path, map_location=device)
-        optimizer.load_state_dict(model_cp['opt_dict'])
-        scheduler.load_state_dict(model_cp['scheduler_dict'])
-        model.load_state_dict(model_cp['model_dict'])
+    if not TRAIN:
+        print('loading model from checkpoint: %s' % model_path_trained)
+        model_cp = torch.load(model_path_trained, map_location=device)
+        # model.load_state_dict(model_cp['model_dict'])
+        model.load_state_dict(model_cp)
         del model_cp # otherwise consumes GPU memory
 
     """data"""
@@ -477,7 +467,7 @@ if __name__ == '__main__':
     
     if TRAIN:
         model.train()
-        for i in range(cp_iter, num_epoch):
+        for i in range(0, num_epoch):
             if dataset is None:
                 dataset = dataset_cls(MODE,  )
             train(i, TRAIN, dataset)
@@ -496,8 +486,7 @@ if __name__ == '__main__':
                 train(i, False, dataset_val)
                 del dataset_val
     else:
-        assert cp_iter>0
-        train(cp_iter, TRAIN, dataset)
+        train(0, TRAIN, dataset)
    
     
     

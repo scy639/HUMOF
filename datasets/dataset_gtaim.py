@@ -1,3 +1,10 @@
+"""
+The train/test split is by room (`r001/r002/r003/r006` train, `r010/r011/r013` test, hard-coded in `datasets/dataset_gtaim.py`). 
+
+The per-frame scene-point index cache (`./data/GTA-IM_Dataset/processed/processed_seq_pkl-perFrame/`) 
+is generated automatically by `DatasetGTA` on first use.
+"""
+
 from conf import *
 from pathlib import Path
 import os
@@ -17,6 +24,7 @@ from conf2 import *
 
 PRE_COMPUTE_IDXS:bool= True  #pre: load or gen in DatasetGTA.__init__. else compute in __getitem__
 LOAD_IDXS_in_init_or_getitem: bool= False  # 1=init,0=getitem. valid only when PRE_COMPUTE_IDXS
+GPU_accelerate_cache_gen=   1
 
 class DatasetGTA(Dataset):
 
@@ -125,6 +133,7 @@ class DatasetGTA(Dataset):
                 print(f'IDXS_DIR already created && load in getitem => return')
                 return
             #
+            IDXS_DIR.parent.mkdir(exist_ok=True)
             IDXS_DIR.mkdir(exist_ok=True)
             print(f'{load_idx=}',)
             k=0
@@ -139,8 +148,7 @@ class DatasetGTA(Dataset):
                 #         sub_idxs_list=pickle.load( f)
                 #     assert len(idxs_frame)==len(sub_idxs_list),f"{len(idxs_frame)=} {len(sub_idxs_list)=}"
                 # else:
-                GPU_accelerate=   1
-                if GPU_accelerate:
+                if GPU_accelerate_cache_gen:
                     scene_vert=torch.tensor(scene_vert).cuda()
                 
                 
@@ -151,7 +159,7 @@ class DatasetGTA(Dataset):
                     # if load_idx:
                     #     idxs=sub_idxs_list[tmp_i]   
                     # else:
-                    if GPU_accelerate  :    
+                    if GPU_accelerate_cache_gen  :    
                         root_joint=torch.tensor(root_joint).cuda()
                         dist = torch.norm(scene_vert[:,:3] - root_joint, dim=-1)
                         idxs = torch.where(dist <= self.max_dist_from_human)[0].cpu().numpy()
@@ -235,4 +243,10 @@ class DatasetGTA(Dataset):
         return pose, objs_pc, scene_origin, objs_semId, item_key
 
     
+
+if __name__ == '__main__':
+    # pre-generate the per-frame scene-point index cache, run once before train/eval
+    ds = DatasetGTA('train')
+    del ds
+    ds = DatasetGTA('test')
 

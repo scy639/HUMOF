@@ -284,3 +284,11 @@ class DatasetHOIm3(Dataset):
             primary_exists= 0
 
         return pose, objs_pc, scene_origin, objs_semId, item_key, others, primary_exists
+
+
+if __name__ == '__main__':
+    # pre-generate the filter caches (tu_2_others_ids / tu_2_should_filter_primary), run once before train/eval
+    ds = DatasetHOIm3('train')
+    del ds
+    ds = DatasetHOIm3('test')
+

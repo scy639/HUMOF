@@ -1,3 +1,9 @@
+checkpoints
+datasets/dataset_preprocess/hik/SAST
+*.json
+src/
+
+session-ses*.md
 .cursorignore
 .specstory
 log

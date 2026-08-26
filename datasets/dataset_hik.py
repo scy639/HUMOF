@@ -25,6 +25,7 @@ from natsort import natsorted
 from utils import *
 import globals_
 from . import aug
+from datasets.dataset_preprocess.util_dataset import *  # filterB, primary_filterC
 
     
 
@@ -321,3 +322,9 @@ class DatasetHik(Dataset):
 
         return pose, objs_pc, scene_origin, objs_semId, item_key, others, primary_exists
 
+
+if __name__ == '__main__':
+    # pre-generate the filter caches (tu_2_others_ids / tu_2_should_filter_primary), run once before train/eval
+    ds = DatasetHik('train')
+    del ds
+    ds = DatasetHik('test')

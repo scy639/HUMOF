@@ -44,8 +44,8 @@ def get_idxs_of_near_point_in_scene_vert( # filtered points too far from human
 
 class DatasetHumanise(Dataset):
     def __init__(self,mode,dataset_specs={},scene_seen_or_unseen:str=None) -> None:
-        IDXS_parent_DIR=HUMANISE_DIR/'mid_2_idxs-Nov01'
-        SPLIT_FILE=HUMANISE_DIR/'split'/f'{SPLIT_FILE_NAME}.json'
+        IDXS_parent_DIR=HUMANISE_DIR/'mid_2_idxs'
+        SPLIT_FILE=HUMANISE_DIR/'split.json'
         self.HUHUMANISE_DIR=HUMANISE_DIR
         self.J_S_DIR=J_S_DIR
         assert J_S_DIR.exists(),   J_S_DIR
